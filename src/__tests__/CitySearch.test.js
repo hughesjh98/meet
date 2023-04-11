@@ -3,7 +3,6 @@ import { shallow } from "enzyme";
 import CitySearch from "../CitySearch";
 import { mockData } from "../mockData";
 import { extractLocations } from "../api";
-import { queryAllByRole } from "@testing-library/react";
 
 describe('<CitySearch/> component', () => {
     let locations, CitySearchWrapper;
@@ -38,7 +37,7 @@ describe('<CitySearch/> component', () => {
         const suggestions = CitySearchWrapper.state('suggestions');
 
         expect(CitySearchWrapper.find('.suggestions li')).toHaveLength(suggestions.length + 1);
-        for (let i = 0; i < suggestions.lenth; i += 1) {
+        for (let i = 0; i < suggestions.length; i += 1) {
             expect(CitySearchWrapper.find('.suggestions li').at(i).text()).toBe(suggestions[i]);
         }
     });
