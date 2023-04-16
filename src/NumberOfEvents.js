@@ -1,40 +1,39 @@
 import React, { Component } from "react";
 
-
 class NumberOfEvents extends Component {
     state = {
-        number: '32'
-    }
+        numberOfEvents: 32,
+    };
 
     handleNumberChange = (event) => {
-        let inputValue = event.target.value;
-        const errorMessage = 'please enter a number from 1 to 32';
+        const inputValue = event.target.value;
+        this.props.updateEvents(null, inputValue);
+        this.setState({ numberOfEvents: inputValue });
 
-        if (inputValue < 1 || inputValue > 32) {
-            this.setState({ errorMessage });
-            this.props.updateEvents(null, [])
+        if (inputValue < 1) {
+            this.setState({
+                infoText: "select a number from 1 to 32"
+            });
         } else {
-            this.setState({ number: inputValue });
-            this.props.updateEvents(null, inputValue)
+            this.setState({
+                infoText: "",
+            });
         }
     }
 
-
     render() {
+        const { numberOfEvents } = this.state;
         return (
-            <div className="numOfEvents">
-                <h4>events displayed</h4>
+            <div className="numberOfEvents">
+                <label>events displayed</label>
                 <input
-                    type="number"
+                    type="text"
                     className="input-number"
-                    value={this.state.number}
+                    value={numberOfEvents}
                     onChange={this.handleNumberChange}
-
-
                 />
-
             </div>
-        )
+        );
     }
 }
 export default NumberOfEvents
