@@ -32,14 +32,14 @@ const removeQuery = () => {
 
 const getToken = async (code) => {
     try {
-        const encodedCode = encodeURIComponent(code);
-        const response = await fetch('https://yf0gksmp73.execute-api.eu-central-1.amazonaws.com/dev/api/token'
-            + '/' + encodedCode)
-        if (response.ok) {
+        const encodeCode = encodeURIComponent(code);
+
+        const response = await fetch( 'https://yf0gksmp73.execute-api.eu-central-1.amazonaws.com/dev/api/token' + '/' + encodeCode);
+        if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
         const { access_token } = await response.json();
-        access_token && localStorage.setItem("access_token", access_token)
+        access_token && localStorage.setItem("access_token", access_token);
         return access_token;
     } catch(error) {
         error.json();
