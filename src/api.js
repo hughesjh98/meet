@@ -1,8 +1,8 @@
 import { mockData } from "./mockData";
-import axios from "axios"
 import NProgress from "nprogress";
+import axios from "axios";
 
-export const extractLocations = (events) => {
+const extractLocations = (events) => {
     var extractLocations = events.map((event) => event.location);
     var locations = [...new Set(extractLocations)];
     return locations;
@@ -47,7 +47,7 @@ const getToken = async (code) => {
 }
 
 
-export const getEvents = async () => {
+const getEvents = async () => {
     NProgress.start();
 
     if (window.location.href.startsWith('http://localhost')) {
@@ -75,7 +75,7 @@ export const getEvents = async () => {
 
 
 
-export const getAccessToken = async () => {
+const getAccessToken = async () => {
     const accessToken = localStorage.getItem('access_token');
     const tokenCheck = accessToken && (await checkToken(accessToken));
 
@@ -93,3 +93,5 @@ export const getAccessToken = async () => {
     }
     return accessToken;
 };
+
+export { getEvents, getAccessToken, extractLocations, getToken, checkToken  };
