@@ -6,6 +6,7 @@ import CitySearch from "../CitySearch";
 import numberOfEvents from "../NumberOfEvents"
 import { mockData } from '../mockData';
 import { extractLocations, getEvents } from '../api';
+import NumberOfEvents from "../NumberOfEvents";
 //unit tests
 describe('<App /> component', () => {
     let AppWrapper;
@@ -58,16 +59,33 @@ describe('<App/> intergration', () => {
         const eventsToShow = allEvents.filter(event => event.location === selectedCity);
         expect(AppWrapper.state('events')).toEqual(eventsToShow);
         AppWrapper.unmount();
-    })
+    });
 
     test('get a list of all events when the user clicks"see all cities"', async () => {
         const AppWrapper = mount(<App />);
         const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
         await suggestionItems.at(suggestionItems.length - 1).simulate('click');
-
         const allEvents = await getEvents();
         expect(AppWrapper.state('events')).toEqual(allEvents);
         AppWrapper.unmount();
+    });
+
+    //intergration tests for NumberOfEvents
+    test('App passes numberOfEvents state as a prop to NumberOfEvents', () => {
+        const AppWrapper = mount(<App />);
+        const AppEventCountState = AppWrapper.state('numberOfEvents');
+        expect(AppEventCountState).not.toEqual(undefined);
+        AppWrapper.setState({ numberOfEvents: 32 });
+        expect(AppWrapper.find(NumberOfEvents).props().numberOfEvents).toEqual(AppEventCountState);
+        AppWrapper.unmount();
     })
 
+    test('filtered list of events that matches the mock data', async () => {
+        const AppWrapper = mount(<App />);
+        const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
+        NumberOfEventsWrapper.find('.numberOfEvents').simulate('change', { target: { value: 3 } });
+        await getEvents();
+        expect(AppWrapper.state('events')).toEqual(mockData.slice(0, 3));
+        AppWrapper.unmount();
+    })
 })
