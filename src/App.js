@@ -49,7 +49,7 @@ class App extends Component {
       });
     } else {
       getEvents().then((events) => {
-        const locationEvents = (location === 'all') ?
+        const locationEvents = (selectedAllLocations === 'all') ?
           events :
           events.filter((event) => event.location === selectedAllLocations);
         eventsDisplayed = locationEvents.slice(0, inputNumber);
