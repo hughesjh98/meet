@@ -52,7 +52,7 @@ describe('<Event /> component', () => {
         expect(EventWrapper.find('p.description')).toHaveLength(1);
     })
 
-    test('check if the button can expand when clicked', () => {
+    test('check if the button can close when clicked', () => {
         const detailsButton = EventWrapper.find('button.detailsBtn');
         expect(detailsButton.text()).toBe('Hide Details');
         detailsButton.simulate('click');
