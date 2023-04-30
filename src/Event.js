@@ -24,10 +24,13 @@ class Event extends Component {
 
                 {!collapsed && (
                     <>
-                        <a className="link" href={event.htmlLink}> see details on google calendar</a>
-                        <p className="description">{event.description}</p>
+                        <div className="event-details">
+                            <a className="link" href={event.htmlLink}> see details on google calendar</a>
+                            <p className="description">{event.description}</p>
+                        </div>
                     </>
                 )}
+
 
                 <button className="detailsBtn" onClick={() => this.toggleDetails()}>{collapsed ? "Show" : "Hide"} Details</button>
             </div>
