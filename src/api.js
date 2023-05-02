@@ -73,8 +73,6 @@ const getEvents = async () => {
 };
 
 
-
-
 const getAccessToken = async () => {
     const accessToken = localStorage.getItem('access_token');
     const tokenCheck = accessToken && (await checkToken(accessToken));
