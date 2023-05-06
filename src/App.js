@@ -21,7 +21,6 @@ class App extends Component {
         this.setState({
           events,
           locations: extractLocations(events),
-          numberOfEvents: 32 //new 
         })
       }
     });
