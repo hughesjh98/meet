@@ -18,11 +18,13 @@ class App extends Component {
     this.mounted = true;
     getEvents().then((events) => {
       if (this.mounted) {
-        this.setState({ events, locations: extractLocations(events) })
+        this.setState({
+          events,
+          locations: extractLocations(events),
+        })
       }
     });
   }
-
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -40,7 +42,7 @@ class App extends Component {
         const locationEvents = (location === 'all') ?
           events :
           events.filter((event) => event.location === location);
-        const eventsDisplayed = locationEvents.slice(0, inputNumber);
+        const eventsDisplayed = locationEvents.slice(0, this.state.inputNumber);
         this.setState({
           events: eventsDisplayed,
           numberOfEvents: inputNumber,
