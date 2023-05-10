@@ -42,83 +42,83 @@ module.exports.getAuthURL = async () => {
 };
 
 module.exports.getAccessToken = async (event) => {
-    const oAuth2Client = new google.auth.OAuth2(
-        client_id,
-        client_secret,
-        redirect_uris[0]
-      );
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
 
-      const code = decodeURIComponent(`${event.pathParameters.code}`);
+  const code = decodeURIComponent(`${event.pathParameters.code}`);
 
-      return new Promise((resolve, reject) => {
-        oAuth2Client.getToken(code, (error, token) => {
-            if(error) {
-                return reject(error);
-            }
-            return resolve(token);
-        });
-      }).then ((token) => {
-        return {
-            statusCode: 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            },
-            body:   JSON.stringify(token)
-        }
-      }) .catch((error) => {
-        console.error(error);
-        return {
-        statusCode: 500,
-        body: JSON.stringify(error)
-        }
-      });
+  return new Promise((resolve, reject) => {
+    oAuth2Client.getToken(code, (error, token) => {
+      if (error) {
+        return reject(error);
+      }
+      return resolve(token);
+    });
+  }).then((token) => {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
+      body: JSON.stringify(token)
+    }
+  }).catch((error) => {
+    console.error(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify(error)
+    }
+  });
 };
 
-module.exports.getCalendarEvents = async (event ) => {
-    const oAuth2Client = new google.auth.OAuth2(
-        client_id,
-        client_secret,
-        redirect_uris[0]
-      );
-      const access_token = decodeURIComponent(`${event.pathParameters.access_token}`);
+module.exports.getCalendarEvents = async (event) => {
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
+  const access_token = decodeURIComponent(`${event.pathParameters.access_token}`);
 
-      oAuth2Client.setCredentials({access_token});
+  oAuth2Client.setCredentials({ access_token });
 
-      return new Promise((resolve, reject) => {
-        calendar.events.list(
-            {
-              calendarId: calendar_id,
-              auth: oAuth2Client,
-              timeMin: new Date().toISOString(),
-              singleEvents: true,
-              orderBy: "startTime",
-            },
-            (error, response) => {
-              if (error) {
-                reject(error);
-              } else {
-                resolve(response);
-              }
-            }
-          );
-      })
-      .then( results => {
-        return{
-            statusCode: 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Credentials': true,
-            },
-            body: JSON.stringify({events: results.data.items})
+  return new Promise((resolve, reject) => {
+    calendar.events.list(
+      {
+        calendarId: calendar_id,
+        auth: oAuth2Client,
+        timeMin: new Date().toISOString(),
+        singleEvents: true,
+        orderBy: "startTime",
+      },
+      (error, response) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(response);
         }
-      })
-      .catch((error) => {
-        console.error(error);
-        return {
+      }
+    );
+  })
+    .then(results => {
+      return {
+        statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
+        },
+        body: JSON.stringify({ events: results.data.items })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      return {
         statusCode: 500,
         body: JSON.stringify(error)
-        }
-      });
+      }
+    });
 
 }
