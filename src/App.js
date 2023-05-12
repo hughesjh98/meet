@@ -27,7 +27,7 @@ class App extends Component {
     });
     if (!navigator.onLine) {
       this.setState({
-        warningText: 'this app in not online. the events may not be up to date'
+        warningText: 'this app is not online. the events may not be up to date'
       })
     } else {
       this.setState({
