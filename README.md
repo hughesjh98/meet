@@ -6,3 +6,5 @@ im going to use AWS serverless funcions for authentification to get the token fr
 3. got the token.
 4. use the token to access the google calendar api for events.
 5. send the events back to the user. 
+
+check out the live site - https://hughesjh98.github.io/meet/
