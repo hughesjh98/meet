@@ -25,15 +25,6 @@ class App extends Component {
         })
       }
     });
-    if (!navigator.onLine) {
-      this.setState({
-        warningText: 'this app is not online. the events may not be up to date'
-      })
-    } else {
-      this.setState({
-        warningText: ''
-      })
-    }
   }
   componentWillUnmount() {
     this.mounted = false;
@@ -72,18 +63,17 @@ class App extends Component {
       });
     }
   }
-
-
-
   render() {
+    const offlineText = navigator.onLine ? '' : 'this app is not online. the events may not be up to date';
+
     return (
       <div className="App">
-        <WarningAlert text={this.state.warningText} />
+        <WarningAlert text={offlineText} />
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
         <NumberOfEvents numberOfEvents={this.state.numberOfEvents} updateEvents={this.updateEvents} />
         <EventList events={this.state.events} />
       </div>
     );
-  }
-}
+  };
+};
 export default App;
