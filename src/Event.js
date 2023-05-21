@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { Component } from "react";
 
 
@@ -16,10 +17,11 @@ class Event extends Component {
     render() {
         const { event } = this.props;
         const { collapsed } = this.state;
+        
         return (
             <div className="event">
                 <h3 className="summary">{event.summary}</h3>
-                <p className="start_event">{new Date(event.start.dateTime).toString()}</p>
+                <p className="start_event">{moment(event.start.dateTime).format('MMMM Do YYYY, h:mma ')}</p>
                 <p className="location">{event.location}</p>
 
                 {!collapsed && (
