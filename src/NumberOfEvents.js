@@ -26,7 +26,7 @@ class NumberOfEvents extends Component {
     }
 
     render() {
-        const {numberOfEvents, errorText} = this.state;
+        const { numberOfEvents, errorText } = this.state;
         return (
             <div className="numberOfEvents">
                 <label>events displayed</label>

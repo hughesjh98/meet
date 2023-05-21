@@ -103,7 +103,7 @@ class App extends Component {
             </ScatterChart>
           </ResponsiveContainer>
         </div>
-        <EventList events={this.state.events} />
+        <EventList events={events} />
       </div>
     );
   };
