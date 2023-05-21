@@ -41,6 +41,7 @@ class CitySearch extends Component {
         });
         this.props.updateEvents(suggestion);
     }
+    
     render() {
         return (
             <div className="CitySearch">

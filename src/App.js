@@ -23,7 +23,7 @@ class App extends Component {
       if (this.mounted) {
         const shownEvents = events.slice(0, this.state.numberOfEvents)
         this.setState({
-          events:shownEvents,
+          events: shownEvents,
           locations: extractLocations(events),
         })
       }
@@ -43,39 +43,56 @@ class App extends Component {
     return data;
   };
 
-  updateNumberOfEvents = (numberOfEvents) => {
-    this.setState({
-      numberOfEvents: numberOfEvents
-    })
-  }
-
-  updateEvents = (location, inputNumber) => {
-    const { selectedAllLocations } = this.state
-    if (location) {
+  updateEvents = (location, numberOfEvents) => {
+    if (!numberOfEvents) {
       getEvents().then((events) => {
-        const locationEvents = (location === 'all') ?
-          events :
-          events.filter((event) => event.location === location);
-        const eventsDisplayed = locationEvents.slice(0, this.state.inputNumber);
+        const locationEvents =
+          location === "all"
+            ? events
+            : events.filter((event) => event.location === location);
+        const shownEvents = locationEvents.slice(0, this.state.numberOfEvents);
         this.setState({
-          events: eventsDisplayed,
-          numberOfEvents: inputNumber,
+          events: shownEvents,
           selectedAllLocations: location,
+        });
+      });
+    } else if (numberOfEvents && !location) {
+      getEvents().then((events) => {
+        const locationEvents = events.filter((event) =>
+          this.state.locations.includes(event.location)
+        );
+        const shownEvents = locationEvents.slice(0, numberOfEvents);
+        this.setState({
+          events: shownEvents,
+          numberOfEvents: numberOfEvents,
+        });
+      });
+    } else if (this.state.selectedAllLocations === "all") {
+      getEvents().then((events) => {
+        const locationEvents = events;
+        const shownEvents = locationEvents.slice(0, numberOfEvents);
+        this.setState({
+          events: shownEvents,
+         numberOfEvents: numberOfEvents,
         });
       });
     } else {
       getEvents().then((events) => {
-        const locationEvents = (selectedAllLocations === 'all') ?
-          events :
-          events.filter((event) => event.location === selectedAllLocations);
-        const eventsDisplayed = locationEvents.slice(0, inputNumber);
+        const locationEvents =
+          this.state.locations === "all"
+            ? events
+            : events.filter(
+                (event) => this.state.selectedAllLocations === event.location
+              );
+        const shownEvents = locationEvents.slice(0, numberOfEvents);
         this.setState({
-          events: eventsDisplayed,
-          numberOfEvents: inputNumber
+          events: shownEvents,
+          numberOfEvents:numberOfEvents,
         });
       });
     }
-  }
+  };
+
   render() {
     const offlineText = navigator.onLine ? '' : 'this app is not online. the events may not be up to date';
     const { locations, numberOfEvents, events } = this.state;
