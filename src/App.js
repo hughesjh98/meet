@@ -16,7 +16,7 @@ class App extends Component {
     locations: [],
     selectedAllLocations: 'all',
     numberOfEvents: 32,
-    ShowWelcomeScreen: undefined
+    showWelcomeScreen: undefined
   }
 
   async componentDidMount() {
@@ -106,7 +106,7 @@ class App extends Component {
   render() {
     const offlineText = navigator.onLine ? '' : 'this app is not online. the events may not be up to date';
     const { locations, numberOfEvents, events } = this.state;
-    if (this.state.ShowWelcomeScreen === undefined) return <div className="App" />
+    if (this.state.showWelcomeScreen === undefined) return <div className="App" />
 
     return (
       <div className="App">
