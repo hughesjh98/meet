@@ -3,7 +3,8 @@ import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
-import { getEvents, extractLocations } from './api';
+import WelcomeScreen from './WelcomeScreen';
+import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import { WarningAlert } from './Alert';
 import EventGenre from './EventGenre';
 import './nprogress.css';
@@ -15,19 +16,28 @@ class App extends Component {
     locations: [],
     selectedAllLocations: 'all',
     numberOfEvents: 32,
+    ShowWelcomeScreen: undefined
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        const shownEvents = events.slice(0, this.state.numberOfEvents)
-        this.setState({
-          events: shownEvents,
-          locations: extractLocations(events),
-        })
-      }
-    });
+    const accessToken = localStorage.getItem("access_token");
+    const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get("code");
+    this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+
+    if ((code || isTokenValid) && this.mounted) {
+      getEvents().then((events) => {
+        if (this.mounted) {
+          const shownEvents = events.slice(0, this.state.numberOfEvents)
+          this.setState({
+            events: shownEvents,
+            locations: extractLocations(events),
+          })
+        }
+      });
+    }
   }
   componentWillUnmount() {
     this.mounted = false;
@@ -73,7 +83,7 @@ class App extends Component {
         const shownEvents = locationEvents.slice(0, numberOfEvents);
         this.setState({
           events: shownEvents,
-         numberOfEvents: numberOfEvents,
+          numberOfEvents: numberOfEvents,
         });
       });
     } else {
@@ -82,12 +92,12 @@ class App extends Component {
           this.state.locations === "all"
             ? events
             : events.filter(
-                (event) => this.state.selectedAllLocations === event.location
-              );
+              (event) => this.state.selectedAllLocations === event.location
+            );
         const shownEvents = locationEvents.slice(0, numberOfEvents);
         this.setState({
           events: shownEvents,
-          numberOfEvents:numberOfEvents,
+          numberOfEvents: numberOfEvents,
         });
       });
     }
@@ -96,6 +106,7 @@ class App extends Component {
   render() {
     const offlineText = navigator.onLine ? '' : 'this app is not online. the events may not be up to date';
     const { locations, numberOfEvents, events } = this.state;
+    if (this.state.ShowWelcomeScreen === undefined) return <div className="App" />
 
     return (
       <div className="App">
@@ -122,6 +133,8 @@ class App extends Component {
           </ResponsiveContainer>
         </div>
         <EventList events={events} />
+        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => { getAccessToken() }} />
       </div>
     );
   };
