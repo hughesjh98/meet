@@ -56,12 +56,6 @@ p {
   overflow-x: hidden;
 }
 
-.numberOfEvents {
-  width: 200px;
-  margin: 20px auto;
-  text-align: center;
-}
-
 .button-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
