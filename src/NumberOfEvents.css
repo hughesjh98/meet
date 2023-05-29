@@ -7,4 +7,10 @@ input[type="number"] {
     line-height: 20px;
     align-self: center;
     height: 38px;
-  }
+}
+
+.numberOfEvents {
+    width: 200px;
+    margin: 20px auto;
+    text-align: center;
+}
