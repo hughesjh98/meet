@@ -7,7 +7,7 @@
     justify-content: center;
 }
 
-input[type="number"] {
+.input-number {
     padding: 8px 6px 8px 10px;
     border-radius: 4px;
     outline: none;
