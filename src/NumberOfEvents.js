@@ -32,7 +32,7 @@ class NumberOfEvents extends Component {
             <div className="numberOfEvents">
                 <label>events displayed</label>
                 <input
-                    type="number"
+                    type="text"
                     className="input-number"
                     min={1}
                     max={32}
