@@ -18,25 +18,6 @@ p {
   margin: 5px 0;
 }
 
-.event {
-  padding: 10px 10px 35px;
-  margin-bottom: 10px;
-  text-align: left;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  position: relative;
-}
-
-.details-btn {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  padding: 5px 8px;
-  border-radius: 4px;
-  outline: none;
-  cursor: pointer;
-}
-
 .name {
   font-size: 18px;
   font-weight: 600;
