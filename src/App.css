@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);
+
 .App {
   text-align: center;
   padding: 2% 5%;
@@ -17,13 +18,6 @@ p {
   margin: 5px 0;
 }
 
-.display-none {
-  display: none;
-}
-.showSuggestions {
-  display: block;
-}
-
 input[type="text"],
 input[type="number"] {
   padding: 8px 6px 8px 10px;
@@ -34,46 +28,6 @@ input[type="number"] {
   line-height: 20px;
   align-self: center;
   height: 38px;
-}
-
-.city {
-  width: 250px;
-}
-
-.CitySearch {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 300px;
-  max-width: 300px;
-  margin:auto;
-  position: relative;
-
-}
-
-.suggestions {
-  width: 250px;
-  position: relative;
-  z-index: 2;
-  align-self: center;
-  margin: 0;
-  font-size: 14px;
-  box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
-}
-
-.suggestions > li {
-  text-align: left;
-  padding: 8px 6px 8px 10px;
-  background-color: #eee;
-  cursor: default;
-}
-
-.suggestions > li:last-child {
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-
-.suggestions > li:hover {
-  background-color: #bcdcdb;
 }
 
 .event {
@@ -129,8 +83,8 @@ input[type="number"] {
 }
 
 .Alert {
-position:relative;
-height: 50px;
+  position: relative;
+  height: 50px;
 }
 
 .data-vis-wrapper {
@@ -138,10 +92,12 @@ height: 50px;
   align-items: center;
   flex-direction: column;
 }
+
 .data-vis-wrapper .recharts-responsive-container {
   min-width: 100%;
   display: flex;
 }
+
 .recharts-surface {
   overflow: visible;
 }
@@ -167,12 +123,15 @@ height: 50px;
   border-radius: 2px;
   box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
 }
+
 .google-btn:hover {
   box-shadow: 0 0 6px #4285f4;
 }
+
 .google-btn:active {
   background: #1669f2;
 }
+
 .google-icon-wrapper {
   position: absolute;
   margin-top: 1px;
@@ -182,6 +141,7 @@ height: 50px;
   border-radius: 2px;
   background-color: #fff;
 }
+
 .google-icon {
   position: absolute;
   margin-top: 11px;
@@ -189,6 +149,7 @@ height: 50px;
   width: 18px;
   height: 18px;
 }
+
 .btn-text {
   float: right;
   margin: 11px 11px 0 0;
@@ -204,6 +165,7 @@ height: 50px;
   .data-vis-wrapper {
     flex-direction: row;
   }
+
   .data-vis-wrapper .recharts-responsive-container {
     flex-basis: 50%;
     max-width: 50%;
@@ -211,8 +173,3 @@ height: 50px;
     margin: 0 auto;
   }
 }
-
-.App {
-  text-align: center;
-}
-

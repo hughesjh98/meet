@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
+const colors = ["#524C9A", "#C9B7AD", "#CED3DC", "#ABA9C3", "#635C51"];
+const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
+
 const EventGenre = ({ events }) => {
     const [data, setData] = useState([]);
-    const colors = ["#524C9A", "#C9B7AD", "#CED3DC", "#ABA9C3", "#635C51"];
-
 
     useEffect(() => {
         setData(() => {
 
-            const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
             const data = genres.map((genre) => {
                 const value = events.filter(({ summary }) => summary.split(" ").includes(genre)).length;
 
