@@ -1,13 +1,10 @@
 .numberOfEvents {
-    display: flex;
     width: 200px;
     margin: 20px auto;
     text-align: center;
-    align-items: center;
-    justify-content: center;
 }
 
-.input-number {
+input[type="text"] {
     padding: 8px 6px 8px 10px;
     border-radius: 4px;
     outline: none;
